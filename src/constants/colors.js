@@ -1,0 +1,5 @@
+export default colors = {
+  MAIN_BACKGROUND: '#B5E51D',
+  MAIN_TEXT: '#E8FA92',
+  LIST_DISTRICT_BACKGROUND: '#5BDF23',
+};
