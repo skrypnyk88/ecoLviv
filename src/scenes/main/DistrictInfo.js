@@ -19,14 +19,14 @@ class DistrictInfo extends React.Component {
         {
           isFirstMonth &&
           <TouchableOpacity
-            style={[styles.changeDateButton, {left: 10}]}
+            style={[styles.changeDateButton, {left: 3}]}
             onPress={() => this.setState({ isFirstMonth: !this.state.isFirstMonth })}
           >
             <Image source={arrow_back} style={styles.backImage} />
           </TouchableOpacity>
         }
         <View style={styles.showDateBlock}>
-          <Text>{date}</Text>
+          <Text style={styles.textBtn}>{date}</Text>
         </View>
         {
           !isFirstMonth &&
@@ -43,12 +43,13 @@ class DistrictInfo extends React.Component {
 
   calculateReit = (dataForRendering) => {
     const { x1, x2, x3, x4 } = dataForRendering.ecoValues;
-    return (x1 + x2 * 2 + x3 * 3 + x4 * (-4));
+    return (0.30*x1 + 0.30*x2 - 0.10*x3 + 0.30*x4);
   };
 
   render() {
     const image = require('../../images/arrow_back.png');
-    const { district } = this.props.navigation.state.params;
+
+    const { district, imageDistrict } = this.props.navigation.state.params;
     const dataForRendering = district.content[this.state.isFirstMonth ? 'first' : 'second'];
     const { x1, x2, x3, x4, textX1, textX2, textX3, textX4 } = dataForRendering.ecoValues;
     return (
@@ -61,20 +62,22 @@ class DistrictInfo extends React.Component {
             <Image source={image} style={styles.backImage} />
           </TouchableOpacity>
           <Text style={styles.titleText}>{district.name}</Text>
-          <Text style={styles.titleText}>{this.calculateReit(dataForRendering)}%</Text>
+          <Text style={styles.titleText}>  </Text>
         </View>
         <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.containerScrollView}>
+          <Image source={imageDistrict} style={styles.image}/>
+          <Text style={styles.titleTextPercent}>{this.calculateReit(dataForRendering)}%</Text>
           <Text style={styles.text}>
-            Чистота повітря: {x1}% {textX1}
+            Чистота повітря: {textX1}
           </Text>
           <Text style={styles.text}>
-            Чистота води: {x2}% {textX2}
+            Чистота води: {textX2}
           </Text>
           <Text style={styles.text}>
-            Зелені насадження: {x3}% {textX3}
+            Виробництво: {textX4}
           </Text>
           <Text style={styles.text}>
-            Виробництво: {x4}% {textX4}
+            Зелені насадження: {textX3}
           </Text>
           {this.renderChangeMonth(dataForRendering.date)}
         </ScrollView>
@@ -105,6 +108,11 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 20,
+  },
+  titleTextPercent: {
+    fontSize: 20,
+    alignSelf: 'center',
+    marginVertical: 5,
   },
   backImage: {
     width: 30,
@@ -146,6 +154,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 8,
   },
+  image: {
+    alignSelf: 'center',
+  },
+  textBtn: {
+    color: colors.MAIN_TEXT,
+  }
 });
 
 export default DistrictInfo;

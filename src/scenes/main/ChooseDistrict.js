@@ -3,15 +3,44 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 import { colors, scenes, mockData } from '../../constants';
 
+const id1 = require('../../images/id1.png');
+const id2 = require('../../images/id2.png');
+const id3 = require('../../images/id3.png');
+const id4 = require('../../images/id4.png');
+const id5 = require('../../images/id5.png');
+const id6 = require('../../images/id6.png');
 
 class ChooseDistrict extends React.Component {
+  getCurrentImage = id => {
+    switch (id) {
+      case 1:
+        return id1;
+      case 2:
+        return id2;
+      case 3:
+        return id3;
+      case 4:
+        return id4;
+      case 5:
+        return id5;
+      case 6:
+        return id6;
+      default:
+        return id1;
+    }
+  };
+
   renderDistrictBtns = () => {
     return mockData.districts.map(district => {
+
       return (
         (
           <TouchableOpacity
             style={styles.button}
-            onPress={() => this.props.navigation.navigate(scenes.DISTRICT_INFO, { district })}
+            onPress={() => this.props.navigation.navigate(scenes.DISTRICT_INFO, {
+              district,
+              imageDistrict: this.getCurrentImage(district.id)
+            })}
             key={district.id}
           >
             <Text style={styles.buttonText}>{district.name}</Text>

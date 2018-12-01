@@ -1,0 +1,1 @@
+import React, { Fragment } from 'react';import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';class DistrictInfo extends React.Component {  render() {    return (      <Image style={styles.image} source={image}/>    );  }}const styles = StyleSheet.create({  image: {  },});export default DistrictInfo;
